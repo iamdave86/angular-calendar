@@ -1,8 +1,8 @@
 {
   "name": "angular-calendar",
   "version": "1.0.0",
-  "repository": "https://github.com/davedevx/angular-calendar",
-  "author": "davedevx (https://github.com/davedevx)",
+  "repository": "https://github.com/iamdave86/angular-calendar",
+  "author": "iamdave86 (https://github.com/iamdave86)",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
