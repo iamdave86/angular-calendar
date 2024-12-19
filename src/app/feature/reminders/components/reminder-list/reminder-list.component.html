@@ -1,0 +1,18 @@
+<div *ngIf="reminders" class="reminder-list">
+  <div
+    *ngFor="let reminder of reminders | slice : 0 : maxRemindersToRenderPerDay"
+    class="reminder-list-item"
+    [style.background-color]="colorMap[reminder.color]"
+    (click)="openReminderDetails(reminder)"
+  >
+    {{ reminder.text }}
+  </div>
+
+  <div
+    *ngIf="!isAdditional && reminders.length > maxRemindersToRenderPerDay"
+    class="show-more-button"
+    (click)="showAdditionalRemindersModal()"
+  >
+    Show {{ reminders.length - maxRemindersToRenderPerDay }} more
+  </div>
+</div>

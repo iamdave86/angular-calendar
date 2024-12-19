@@ -1,0 +1,17 @@
+.additional-reminders-dialog {
+  &-title {
+    text-align: center;
+    line-height: 26px;
+  }
+
+  &-date {
+    font-size: 16px;
+    color: grey;
+  }
+
+  ::ng-deep &-list .reminder-list-item {
+    font-size: 14px;
+    margin-bottom: 6px;
+    height: 24px;
+  }
+}

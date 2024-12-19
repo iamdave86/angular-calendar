@@ -1,0 +1,32 @@
+.reminder-list {
+  margin-top: 4px;
+  text-align: left;
+
+  &-item {
+    color: white;
+    border-radius: 4px;
+    padding: 0 4px;
+    font-size: 12px;
+    margin-bottom: 2px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 20px;
+    white-space: nowrap;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.show-more-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: black;
+  margin-top: -2px;
+}

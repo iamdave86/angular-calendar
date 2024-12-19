@@ -1,0 +1,41 @@
+<mat-toolbar class="header">
+  <span>Angular Calendar</span>
+  <span class="spacer"></span>
+  <button mat-button (click)="openReminderForm()"><mat-icon>add</mat-icon> New reminder</button>
+</mat-toolbar>
+
+<!-- Create the calendar here -->
+<mat-card class="calendar" *ngIf="selectedDate$ | async as selectedDate">
+  <button class="today-button" mat-raised-button (click)="today()">Today</button>
+
+  <div class="calendar-date-selector">
+    <button class="prev-button" mat-icon-button aria-label="Switch to previous month" (click)="prevMonth()">
+      <mat-icon aria-hidden="false" aria-label="Previous month arrow icon">arrow_back_ios</mat-icon>
+    </button>
+    <span class="selected-date">
+      {{ selectedDate | date : 'MMMM y' }}
+    </span>
+    <button class="next-button" mat-icon-button aria-label="Switch to next month" (click)="nextMonth()">
+      <mat-icon aria-hidden="false" aria-label="Next month arrow icon">arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+
+  <div class="calendar-header">
+    <div class="calendar-header-item" *ngFor="let name of dayNamesOfWeek">{{ name }}</div>
+  </div>
+
+  <div class="calendar-body">
+    <div
+      class="calendar-day"
+      *ngFor="let item of calendarDays$ | async"
+      [class.weekend]="item.weekend"
+      [class.disabled]="item.disabled"
+      [class.today]="item.today"
+    >
+      <span class="day">{{ item.date | date : 'd' }}</span>
+
+      <app-reminder-list [reminders]="item.reminders"></app-reminder-list>
+    </div>
+  </div>
+</mat-card>
+<!-- ======================== -->

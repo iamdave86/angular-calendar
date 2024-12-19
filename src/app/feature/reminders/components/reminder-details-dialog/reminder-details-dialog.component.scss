@@ -1,0 +1,35 @@
+.reminder-details-dialog {
+  &-content {
+    height: 167px;
+  }
+
+  &-title {
+    line-height: 26px;
+  }
+
+  &-icon {
+    margin-right: 4px;
+  }
+
+  &-date,
+  &-city {
+    display: flex;
+    align-items: center;
+  }
+
+  &-color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+
+  &-weather {
+    display: flex;
+
+    &-desc {
+      text-transform: capitalize;
+    }
+  }
+}
