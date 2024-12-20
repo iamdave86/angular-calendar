@@ -2,7 +2,6 @@
   "name": "angular-calendar",
   "description": "Angular Calendar app with reminders and weather integration",
   "version": "1.0.0",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/iamdave86/angular-calendar.git"
