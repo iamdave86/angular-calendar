@@ -12,6 +12,7 @@ import { MAX_REMINDERS_TO_RENDER_PER_DAY } from '@feature/calendar/constants/cal
 import { DIALOG_WIDTH } from '@constants/dialog.constant';
 import { ReminderDetailsDialogComponent } from '../reminder-details-dialog/reminder-details-dialog.component';
 import { ReminderFormDialogComponent } from '../reminder-form-dialog/reminder-form-dialog.component';
+import { AdditionalReminderDialogComponent } from '../additional-reminders-dialog/additional-reminders-dialog.component';
 
 @Component({
   selector: 'app-reminder-list',
@@ -54,6 +55,15 @@ export class ReminderListComponent {
     this.matDialog.open<ReminderFormDialogComponent>(ReminderFormDialogComponent, {
       data: {
         reminder,
+      },
+      width: DIALOG_WIDTH,
+    });
+  }
+
+  public showAdditionalRemindersModal() {
+    this.matDialog.open<AdditionalReminderDialogComponent>(AdditionalReminderDialogComponent, {
+      data: {
+        reminders: this.reminders.slice(this.maxRemindersToRenderPerDay),
       },
       width: DIALOG_WIDTH,
     });

@@ -8,7 +8,11 @@
     {{ reminder.text }}
   </div>
 
-  <div *ngIf="!isAdditional && reminders.length > maxRemindersToRenderPerDay" class="reminder-list__show-more-button">
+  <div
+    *ngIf="!isAdditional && reminders.length > maxRemindersToRenderPerDay"
+    class="reminder-list__show-more-button"
+    (click)="showAdditionalRemindersModal()"
+  >
     Show {{ reminders.length - maxRemindersToRenderPerDay }} more
   </div>
 </div>

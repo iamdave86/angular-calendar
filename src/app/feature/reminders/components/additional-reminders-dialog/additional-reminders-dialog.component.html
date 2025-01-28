@@ -1,0 +1,20 @@
+<div class="additional-reminders-dialog">
+  <h2 mat-dialog-title class="additional-reminders-dialog__title">
+    Additional reminders
+    <br />
+    <span class="additional-reminders-dialog__date">{{ data.reminders[0].dateTime | date : 'EEEE, MMMM d, y' }}</span>
+  </h2>
+
+  <mat-dialog-content>
+    <app-reminder-list
+      class="additional-reminders-dialog__list"
+      [reminders]="data.reminders"
+      [isAdditional]="true"
+      (clickReminderItem)="clickReminderItem()"
+    ></app-reminder-list>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>
