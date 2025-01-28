@@ -1,0 +1,22 @@
+<div class="reminder-details-dialog">
+  <h2 mat-dialog-title class="reminder-details-dialog__title">
+    <span class="reminder-details-dialog__color" [style.background-color]="colorMap[data.reminder.color]"></span
+    >{{ data.reminder.text }}
+  </h2>
+
+  <mat-dialog-content class="reminder-details-dialog__content">
+    <p class="reminder-details-dialog__date">
+      <mat-icon class="reminder-details-dialog__icon" aria-hidden="true">calendar_today</mat-icon>
+      {{ data.reminder.dateTime | date : 'EEEE, MMMM d, y' }}
+    </p>
+
+    <p class="reminder-details-dialog__city">
+      <mat-icon class="reminder-details-dialog__icon" aria-hidden="true">location_on</mat-icon>
+      {{ data.reminder.city || 'not provided' }}
+    </p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+</div>

@@ -56,7 +56,7 @@
     <button *ngIf="data.reminder" mat-icon-button mat-dialog-close aria-label="Delete reminder" (click)="delete()">
       <mat-icon>delete_forever</mat-icon>
     </button>
-    <button mat-flat-button mat-dialog-close>Close</button>
+    <button mat-stroked-button mat-dialog-close>Close</button>
     <button mat-flat-button (click)="save()" [disabled]="form.invalid">Save</button>
   </mat-dialog-actions>
 </div>

@@ -1,10 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { Reminder, ReminderColorMap } from '@feature/reminders/interfaces/reminder.interface';
+import {
+  Reminder,
+  ReminderColorMap,
+  ReminderDetailsDialogAfterCloseData,
+} from '@feature/reminders/interfaces/reminder.interface';
 import { REMINDER_COLOR_MAP } from '@feature/reminders/constants/reminder.constants';
 import { MAX_REMINDERS_TO_RENDER_PER_DAY } from '@feature/calendar/constants/calendar.constants';
+import { DIALOG_WIDTH } from '@constants/dialog.constant';
+import { ReminderDetailsDialogComponent } from '../reminder-details-dialog/reminder-details-dialog.component';
 
 @Component({
   selector: 'app-reminder-list',
@@ -22,8 +28,18 @@ export class ReminderListComponent {
   public readonly colorMap: ReminderColorMap;
   public readonly maxRemindersToRenderPerDay: number;
 
-  constructor() {
+  constructor(private matDialog: MatDialog) {
     this.colorMap = REMINDER_COLOR_MAP;
     this.maxRemindersToRenderPerDay = MAX_REMINDERS_TO_RENDER_PER_DAY;
+  }
+
+  public openReminderDetails(reminder: Reminder) {
+    const detailsDialogRef: MatDialogRef<ReminderDetailsDialogComponent, ReminderDetailsDialogAfterCloseData> =
+      this.matDialog.open<ReminderDetailsDialogComponent>(ReminderDetailsDialogComponent, {
+        data: {
+          reminder,
+        },
+        width: DIALOG_WIDTH,
+      });
   }
 }

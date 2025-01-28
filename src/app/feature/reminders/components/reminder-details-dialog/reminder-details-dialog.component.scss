@@ -1,0 +1,27 @@
+.reminder-details-dialog {
+  &__content {
+    height: 167px;
+  }
+
+  &__title {
+    line-height: 26px;
+  }
+
+  &__icon {
+    margin-right: 4px;
+  }
+
+  &__date,
+  &__city {
+    display: flex;
+    align-items: center;
+  }
+
+  &__color {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+}

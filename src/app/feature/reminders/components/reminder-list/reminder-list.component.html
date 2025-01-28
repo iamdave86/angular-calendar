@@ -3,6 +3,7 @@
     *ngFor="let reminder of reminders | slice : 0 : maxRemindersToRenderPerDay"
     class="reminder-list__item"
     [style.background-color]="colorMap[reminder.color]"
+    (click)="openReminderDetails(reminder)"
   >
     {{ reminder.text }}
   </div>
