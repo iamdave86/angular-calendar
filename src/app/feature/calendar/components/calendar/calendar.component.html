@@ -1,33 +1,35 @@
-<mat-toolbar class="header">
-  <strong>Angular Calendar</strong>
-</mat-toolbar>
+<div class="calendar-wrapper">
+  <mat-toolbar class="header">
+    <strong>Angular Calendar</strong>
+  </mat-toolbar>
 
-<mat-card class="calendar">
-  <div class="calendar__date-selector">
-    <button class="calendar__prev-button" mat-icon-button aria-label="Switch to previous month" (click)="prevMonth()">
-      <mat-icon aria-hidden="false" aria-label="Previous month arrow icon">arrow_back_ios</mat-icon>
-    </button>
-    <span class="calendar__selected-date">
-      {{ selectedDate$ | async | date : 'MMMM y' }}
-    </span>
-    <button class="calendar__next-button" mat-icon-button aria-label="Switch to next month" (click)="nextMonth()">
-      <mat-icon aria-hidden="false" aria-label="Next month arrow icon">arrow_forward_ios</mat-icon>
-    </button>
-  </div>
-
-  <div class="calendar__header">
-    <div class="calendar__header-item" *ngFor="let name of weekdayNames">{{ name }}</div>
-  </div>
-
-  <div class="calendar__body">
-    <div
-      class="calendar__day"
-      *ngFor="let item of calendarDays$ | async"
-      [class.weekend]="item.weekend"
-      [class.disabled]="item.disabled"
-      [class.today]="item.today"
-    >
-      <span class="calendar__day-item">{{ item.date | date : 'd' }}</span>
+  <mat-card class="calendar">
+    <div class="calendar__date-selector">
+      <button class="calendar__prev-button" mat-icon-button aria-label="Switch to previous month" (click)="prevMonth()">
+        <mat-icon aria-hidden="false" aria-label="Previous month arrow icon">arrow_back_ios</mat-icon>
+      </button>
+      <span class="calendar__selected-date">
+        {{ selectedDate$ | async | date : 'MMMM y' }}
+      </span>
+      <button class="calendar__next-button" mat-icon-button aria-label="Switch to next month" (click)="nextMonth()">
+        <mat-icon aria-hidden="false" aria-label="Next month arrow icon">arrow_forward_ios</mat-icon>
+      </button>
     </div>
-  </div>
-</mat-card>
+
+    <div class="calendar__header">
+      <div class="calendar__header-item" *ngFor="let name of weekdayNames">{{ name }}</div>
+    </div>
+
+    <div class="calendar__body">
+      <div
+        class="calendar__day"
+        *ngFor="let item of calendarDays$ | async"
+        [class.weekend]="item.weekend"
+        [class.disabled]="item.disabled"
+        [class.today]="item.today"
+      >
+        <span class="calendar__day-item">{{ item.date | date : 'd' }}</span>
+      </div>
+    </div>
+  </mat-card>
+</div>
