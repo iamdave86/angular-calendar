@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { CalendarService } from '@feature/calendar/services/calendar.service';
 import { CalendarDay } from '@feature/calendar/interfaces/calendar.interface';
@@ -16,12 +17,20 @@ import { CalendarDay } from '@feature/calendar/interfaces/calendar.interface';
 })
 export class CalendarComponent {
   public weekdayNames: string[];
-  public calendarDays: CalendarDay[];
-  public selectedDate: Date;
+  public calendarDays$: Observable<CalendarDay[]>;
+  public selectedDate$: Observable<Date>;
 
   constructor(private calendarService: CalendarService) {
     this.weekdayNames = this.calendarService.getWeekdayNames();
-    this.calendarDays = this.calendarService.createCalendarDays();
-    this.selectedDate = this.calendarService.getSelectedDate();
+    this.selectedDate$ = this.calendarService.getSelectedDate();
+    this.calendarDays$ = combineLatest([this.selectedDate$]).pipe(map(this.calendarService.createCalendarDays));
+  }
+
+  public prevMonth() {
+    this.calendarService.prevMonth();
+  }
+
+  public nextMonth() {
+    this.calendarService.nextMonth();
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   addDays,
+  addMonths,
   eachDayOfInterval,
   endOfWeek,
   format,
@@ -11,7 +12,9 @@ import {
   isWeekend,
   startOfWeek,
   subDays,
+  subMonths,
 } from 'date-fns';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { CalendarDay } from '../interfaces/calendar.interface';
 import { DATE_FORMAT, FIRST_DAY_OF_WEEK_INDEX, LAST_DAY_OF_WEEK_INDEX } from '../constants/calendar.constants';
@@ -19,7 +22,7 @@ import { DATE_FORMAT, FIRST_DAY_OF_WEEK_INDEX, LAST_DAY_OF_WEEK_INDEX } from '..
 @Injectable()
 export class CalendarService {
   private weekdaysNames: string[];
-  private selectedDate: Date = new Date();
+  private selectedDate$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
 
   constructor() {
     this.weekdaysNames = this.createWeekdayNames();
@@ -29,12 +32,12 @@ export class CalendarService {
     return this.weekdaysNames;
   }
 
-  public getSelectedDate(): Date {
-    return this.selectedDate;
+  public getSelectedDate(): Observable<Date> {
+    return this.selectedDate$.asObservable();
   }
 
   public createCalendarDays = (): CalendarDay[] => {
-    const selectedDate = this.getSelectedDate();
+    const selectedDate = this.selectedDate$.getValue();
     const year = getYear(selectedDate);
     const month = getMonth(selectedDate) + 1;
     const formattedToday = this.formatDate(new Date());
@@ -67,6 +70,14 @@ export class CalendarService {
       return days;
     }, []);
   };
+
+  public prevMonth() {
+    this.selectedDate$.next(subMonths(this.selectedDate$.getValue(), 1));
+  }
+
+  public nextMonth() {
+    this.selectedDate$.next(addMonths(this.selectedDate$.getValue(), 1));
+  }
 
   private createAdditionalDays(date: Date, toIndex: number): CalendarDay[] {
     return [...Array(toIndex).keys()].reduce((days: CalendarDay[], d) => {
