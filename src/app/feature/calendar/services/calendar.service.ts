@@ -19,6 +19,7 @@ import { DATE_FORMAT, FIRST_DAY_OF_WEEK_INDEX, LAST_DAY_OF_WEEK_INDEX } from '..
 @Injectable()
 export class CalendarService {
   private weekdaysNames: string[];
+  private selectedDate: Date = new Date();
 
   constructor() {
     this.weekdaysNames = this.createWeekdayNames();
@@ -28,10 +29,14 @@ export class CalendarService {
     return this.weekdaysNames;
   }
 
+  public getSelectedDate(): Date {
+    return this.selectedDate;
+  }
+
   public createCalendarDays = (): CalendarDay[] => {
-    const today = new Date();
-    const year = getYear(today);
-    const month = getMonth(today) + 1;
+    const selectedDate = this.getSelectedDate();
+    const year = getYear(selectedDate);
+    const month = getMonth(selectedDate) + 1;
     const formattedToday = this.formatDate(new Date());
     const numberOfDayInMonth = getDaysInMonth(new Date(`${year}-${month}`));
 

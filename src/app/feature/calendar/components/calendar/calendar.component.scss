@@ -78,4 +78,15 @@ $color-blue: #2f73b5;
       opacity: 0.4;
     }
   }
+
+  &__date-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__selected-date {
+    font-size: 18px;
+    font-weight: bold;
+  }
 }

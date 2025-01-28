@@ -3,6 +3,18 @@
 </mat-toolbar>
 
 <mat-card class="calendar">
+  <div class="calendar__date-selector">
+    <button class="calendar__prev-button" mat-icon-button aria-label="Switch to previous month">
+      <mat-icon aria-hidden="false" aria-label="Previous month arrow icon">arrow_back_ios</mat-icon>
+    </button>
+    <span class="calendar__selected-date">
+      {{ selectedDate | date : 'MMMM y' }}
+    </span>
+    <button class="calendar__next-button" mat-icon-button aria-label="Switch to next month">
+      <mat-icon aria-hidden="false" aria-label="Next month arrow icon">arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+
   <div class="calendar__header">
     <div class="calendar__header-item" *ngFor="let name of weekdayNames">{{ name }}</div>
   </div>
