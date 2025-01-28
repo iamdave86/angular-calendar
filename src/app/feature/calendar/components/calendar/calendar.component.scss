@@ -72,5 +72,10 @@ $color-blue: #2f73b5;
       display: block;
       margin: 0 auto;
     }
+
+    &.disabled .calendar__day-item {
+      color: rgba(0, 0, 0, 0.87);
+      opacity: 0.4;
+    }
   }
 }
