@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
+import { CalendarService } from '@feature/calendar/services/calendar.service';
 import { CalendarComponent } from './calendar.component';
 
 describe('CalendarComponent', () => {
@@ -8,7 +11,8 @@ describe('CalendarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [],
+      imports: [MatToolbarModule, MatCardModule],
+      providers: [CalendarService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalendarComponent);

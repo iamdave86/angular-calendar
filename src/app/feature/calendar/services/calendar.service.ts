@@ -3,17 +3,17 @@ import { eachDayOfInterval, endOfWeek, format, startOfWeek } from 'date-fns';
 
 @Injectable()
 export class CalendarService {
-  private weekDaysNames: string[];
+  private weekdaysNames: string[];
 
   constructor() {
-    this.weekDaysNames = this.createWeekDayNames();
+    this.weekdaysNames = this.createWeekdayNames();
   }
 
-  public getWeekDayNames(): string[] {
-    return this.weekDaysNames;
+  public getWeekdayNames(): string[] {
+    return this.weekdaysNames;
   }
 
-  private createWeekDayNames(): string[] {
+  private createWeekdayNames(): string[] {
     return eachDayOfInterval({
       start: startOfWeek(new Date(), { weekStartsOn: 0 }),
       end: endOfWeek(new Date(), { weekStartsOn: 0 }),

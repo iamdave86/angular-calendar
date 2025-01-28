@@ -1,1 +1,9 @@
-Calendar
+<mat-toolbar class="header">
+  <strong>Angular Calendar</strong>
+</mat-toolbar>
+
+<mat-card class="calendar">
+  <div class="calendar__header">
+    <div class="calendar__header-item" *ngFor="let name of weekdayNames">{{ name }}</div>
+  </div>
+</mat-card>
