@@ -1,0 +1,62 @@
+<div class="reminder-form-dialog">
+  <h2 mat-dialog-title>{{ data.reminder ? 'Edit reminder' : 'Add reminder' }}</h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="form" class="reminder-form-dialog__form" autocomplete="off">
+      <mat-form-field class="reminder-form-dialog__field" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input
+          #textInput
+          matInput
+          type="text"
+          formControlName="text"
+          autocomplete="off"
+          [maxlength]="maxTextLength"
+          required
+        />
+        <mat-icon aria-hidden="true" matSuffix>title</mat-icon>
+        <mat-hint>Max {{ maxTextLength }} characters.</mat-hint>
+        <mat-hint align="end">{{ textInput.value.length || 0 }}/{{ maxTextLength }}</mat-hint>
+        <mat-error *ngIf="!form.controls['text'].value">Required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="reminder-form-dialog__field" appearance="outline">
+        <mat-label>Color</mat-label>
+        <mat-select formControlName="color">
+          <mat-select-trigger>
+            <span class="reminder-form-dialog__color-item" [style.background-color]="colorMap[selectedColor]"></span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let color of colors" [value]="color">
+            <span
+              class="reminder-form-dialog__color-item"
+              [style.background-color]="colorMap[color]"
+              style="display: block; width: 15px; height: 15px; border-radius: 50%"
+            ></span>
+          </mat-option>
+        </mat-select>
+        <mat-icon aria-hidden="true" matSuffix>palette</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="reminder-form-dialog__field" appearance="outline">
+        <mat-label>Date</mat-label>
+        <input matInput formControlName="dateTime" [matDatepicker]="picker" required readonly (click)="picker.open()" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="reminder-form-dialog__field" appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput type="text" formControlName="city" autocomplete="off" />
+        <mat-icon aria-hidden="true" matSuffix>location_on</mat-icon>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button *ngIf="data.reminder" mat-icon-button mat-dialog-close aria-label="Delete reminder" (click)="delete()">
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+    <button mat-flat-button mat-dialog-close>Close</button>
+    <button mat-flat-button (click)="save()" [disabled]="form.invalid">Save</button>
+  </mat-dialog-actions>
+</div>

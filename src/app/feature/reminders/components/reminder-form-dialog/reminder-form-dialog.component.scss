@@ -1,0 +1,17 @@
+.reminder-form-dialog {
+  .mdc-dialog__content {
+    padding-block: 20px;
+  }
+
+  &__field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__color-item {
+    display: block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+}

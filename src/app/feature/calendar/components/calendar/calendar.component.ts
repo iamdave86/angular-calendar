@@ -1,13 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { combineLatest, map, Observable } from 'rxjs';
 
 import { CalendarService } from '@feature/calendar/services/calendar.service';
 import { CalendarDay } from '@feature/calendar/interfaces/calendar.interface';
+import { Reminder } from '@feature/reminders/interfaces/reminder.interface';
+import { ReminderFormDialogComponent } from '@feature/reminders/components/reminder-form-dialog/reminder-form-dialog.component';
+import { DIALOG_WIDTH } from '@constants/dialog.constant';
 
 @Component({
   selector: 'app-calendar',
@@ -21,7 +25,7 @@ export class CalendarComponent {
   public calendarDays$: Observable<CalendarDay[]>;
   public selectedDate$: Observable<Date>;
 
-  constructor(private calendarService: CalendarService) {
+  constructor(private calendarService: CalendarService, private matDialog: MatDialog) {
     this.weekdayNames = this.calendarService.getWeekdayNames();
     this.selectedDate$ = this.calendarService.getSelectedDate();
     this.calendarDays$ = combineLatest([this.selectedDate$]).pipe(map(this.calendarService.createCalendarDays));
@@ -37,5 +41,14 @@ export class CalendarComponent {
 
   public today() {
     this.calendarService.today();
+  }
+
+  public openAddReminderDialog(reminder?: Reminder) {
+    this.matDialog.open<ReminderFormDialogComponent>(ReminderFormDialogComponent, {
+      data: {
+        reminder,
+      },
+      width: DIALOG_WIDTH,
+    });
   }
 }
