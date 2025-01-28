@@ -17,15 +17,17 @@ import {
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { CalendarDay } from '../interfaces/calendar.interface';
-import { DATE_FORMAT, FIRST_DAY_OF_WEEK_INDEX, LAST_DAY_OF_WEEK_INDEX } from '../constants/calendar.constants';
+import { FIRST_DAY_OF_WEEK_INDEX, LAST_DAY_OF_WEEK_INDEX } from '../constants/calendar.constants';
+import { formatDate } from '@lib/date.lib';
 
 @Injectable()
 export class CalendarService {
   private weekdaysNames: string[];
-  private selectedDate$: BehaviorSubject<Date> = new BehaviorSubject<Date>(new Date());
+  private selectedDate$: BehaviorSubject<Date>;
 
   constructor() {
     this.weekdaysNames = this.createWeekdayNames();
+    this.selectedDate$ = new BehaviorSubject<Date>(new Date());
   }
 
   public getWeekdayNames(): string[] {
@@ -40,7 +42,7 @@ export class CalendarService {
     const selectedDate = this.selectedDate$.getValue();
     const year = getYear(selectedDate);
     const month = getMonth(selectedDate) + 1;
-    const formattedToday = this.formatDate(new Date());
+    const formattedToday = formatDate(new Date());
     const numberOfDayInMonth = getDaysInMonth(new Date(`${year}-${month}`));
 
     return [...Array(numberOfDayInMonth)].reduce((days: CalendarDay[], _, index) => {
@@ -55,7 +57,7 @@ export class CalendarService {
         }
       }
 
-      const date = this.formatDate(dateObj);
+      const date = formatDate(dateObj);
       const weekend = this.isWeekend(dateObj);
       days.push({ date, disabled: false, weekend, today: date === formattedToday });
 
@@ -87,7 +89,7 @@ export class CalendarService {
     return [...Array(toIndex).keys()].reduce((days: CalendarDay[], d) => {
       const addedDate = addDays(date, d);
       days.push({
-        date: this.formatDate(addedDate),
+        date: formatDate(addedDate),
         disabled: true,
         weekend: this.isWeekend(addedDate),
       });
@@ -101,10 +103,6 @@ export class CalendarService {
       start: startOfWeek(new Date(), { weekStartsOn: 0 }),
       end: endOfWeek(new Date(), { weekStartsOn: 0 }),
     }).map(date => format(date, 'EEEE'));
-  }
-
-  private formatDate(date: Date): string {
-    return format(date, DATE_FORMAT);
   }
 
   private isWeekend(date: Date): boolean {

@@ -21,7 +21,8 @@
     "paths": {
       "@env/*": ["src/environments/*"],
       "@feature/*": ["src/app/feature/*"],
-      "@constants/*": ["src/app/constants/*"]
+      "@constants/*": ["src/app/constants/*"],
+      "@lib/*": ["src/app/lib/*"]
     }
   },
   "angularCompilerOptions": {
