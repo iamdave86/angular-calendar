@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { REMINDER_COLOR_MAP, REMINDER_TEXT_MAX_LENGTH } from '@feature/reminders/constants/reminder.constant';
+import { REMINDER_COLOR_MAP, REMINDER_TEXT_MAX_LENGTH } from '@feature/reminders/constants/reminder.constants';
 import {
   Reminder,
   ReminderColorEnum,
