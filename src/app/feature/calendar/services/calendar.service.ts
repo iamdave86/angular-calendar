@@ -19,13 +19,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { CalendarDay } from '../interfaces/calendar.interface';
 import { FIRST_DAY_OF_WEEK_INDEX, LAST_DAY_OF_WEEK_INDEX } from '../constants/calendar.constants';
 import { formatDate } from '@lib/date.lib';
+import { RemindersService } from '@feature/reminders/services/reminders.service';
 
 @Injectable()
 export class CalendarService {
   private weekdaysNames: string[];
   private selectedDate$: BehaviorSubject<Date>;
 
-  constructor() {
+  constructor(private remindersService: RemindersService) {
     this.weekdaysNames = this.createWeekdayNames();
     this.selectedDate$ = new BehaviorSubject<Date>(new Date());
   }
@@ -59,7 +60,8 @@ export class CalendarService {
 
       const date = formatDate(dateObj);
       const weekend = this.isWeekend(dateObj);
-      days.push({ date, disabled: false, weekend, today: date === formattedToday });
+      const reminders = this.remindersService.getRemindersForDate(dateObj);
+      days.push({ date, disabled: false, weekend, today: date === formattedToday, reminders });
 
       // if last day of month is not Saturday, need to fill these gap days from next month
       if (index === numberOfDayInMonth - 1 && dayIndex !== LAST_DAY_OF_WEEK_INDEX) {
@@ -88,10 +90,12 @@ export class CalendarService {
   private createAdditionalDays(date: Date, toIndex: number): CalendarDay[] {
     return [...Array(toIndex).keys()].reduce((days: CalendarDay[], d) => {
       const addedDate = addDays(date, d);
+      const reminders = this.remindersService.getRemindersForDate(addedDate);
       days.push({
         date: formatDate(addedDate),
         disabled: true,
         weekend: this.isWeekend(addedDate),
+        reminders,
       });
 
       return days;

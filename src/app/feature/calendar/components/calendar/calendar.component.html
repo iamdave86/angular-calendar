@@ -43,6 +43,8 @@
         [class.today]="item.today"
       >
         <span class="calendar__day-item">{{ item.date | date : 'd' }}</span>
+
+        <app-reminder-list [reminders]="item.reminders"></app-reminder-list>
       </div>
     </div>
   </mat-card>

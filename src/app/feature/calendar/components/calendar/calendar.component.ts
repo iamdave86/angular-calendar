@@ -12,23 +12,38 @@ import { CalendarDay } from '@feature/calendar/interfaces/calendar.interface';
 import { Reminder } from '@feature/reminders/interfaces/reminder.interface';
 import { ReminderFormDialogComponent } from '@feature/reminders/components/reminder-form-dialog/reminder-form-dialog.component';
 import { DIALOG_WIDTH } from '@constants/dialog.constant';
+import { RemindersService } from '@feature/reminders/services/reminders.service';
+import { ReminderListComponent } from '@feature/reminders/components/reminder-list/reminder-list.component';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatToolbarModule, MatCardModule, MatIconModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    forwardRef(() => ReminderListComponent),
+  ],
 })
 export class CalendarComponent {
   public weekdayNames: string[];
   public calendarDays$: Observable<CalendarDay[]>;
   public selectedDate$: Observable<Date>;
 
-  constructor(private calendarService: CalendarService, private matDialog: MatDialog) {
+  constructor(
+    private calendarService: CalendarService,
+    private remindersService: RemindersService,
+    private matDialog: MatDialog,
+  ) {
     this.weekdayNames = this.calendarService.getWeekdayNames();
     this.selectedDate$ = this.calendarService.getSelectedDate();
-    this.calendarDays$ = combineLatest([this.selectedDate$]).pipe(map(this.calendarService.createCalendarDays));
+    this.calendarDays$ = combineLatest([this.selectedDate$, this.remindersService.getReminders()]).pipe(
+      map(this.calendarService.createCalendarDays),
+    );
   }
 
   public prevMonth() {

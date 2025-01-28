@@ -1,6 +1,9 @@
+import { Reminder } from '@feature/reminders/interfaces/reminder.interface';
+
 export interface CalendarDay {
   date: string;
   disabled: boolean;
-  weekend?: boolean;
+  weekend: boolean;
   today?: boolean;
+  reminders: Reminder[];
 }

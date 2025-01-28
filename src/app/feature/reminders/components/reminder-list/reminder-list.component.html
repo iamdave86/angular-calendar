@@ -1,0 +1,9 @@
+<div *ngIf="reminders" class="reminder-list">
+  <div
+    *ngFor="let reminder of reminders | slice : 0 : maxRemindersToRenderPerDay"
+    class="reminder-list__item"
+    [style.background-color]="colorMap[reminder.color]"
+  >
+    {{ reminder.text }}
+  </div>
+</div>

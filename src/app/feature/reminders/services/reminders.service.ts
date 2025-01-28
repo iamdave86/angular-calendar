@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Reminder } from '../interfaces/reminder.interface';
-import { REMINDER_TEXT_MAX_LENGTH } from '../constants/reminder.constant';
+import { REMINDER_TEXT_MAX_LENGTH } from '../constants/reminder.constants';
+import { formatDate } from '@lib/date.lib';
 
 @Injectable()
 export class RemindersService {
@@ -44,5 +45,10 @@ export class RemindersService {
   public deleteReminder(reminderId: string): boolean {
     this.reminders$.next(this.reminders$.getValue().filter(r => r.id !== reminderId));
     return true;
+  }
+
+  public getRemindersForDate(date: Date): Reminder[] {
+    const formattedDate = formatDate(date);
+    return this.reminders$.getValue().filter(r => formatDate(new Date(r.dateTime)) === formattedDate);
   }
 }
