@@ -27,4 +27,31 @@
       height: 30px;
     }
   }
+
+  &__body {
+    border: 1px solid black;
+    border-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__day {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    flex-grow: 1;
+    width: calc(100% / 8);
+    height: 110px;
+    padding: 4px;
+    text-align: center;
+
+    &:nth-child(7n) {
+      border-right: 0;
+    }
+
+    &-item {
+      font-weight: bold;
+    }
+  }
 }

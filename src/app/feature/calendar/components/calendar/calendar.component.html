@@ -6,4 +6,10 @@
   <div class="calendar__header">
     <div class="calendar__header-item" *ngFor="let name of weekdayNames">{{ name }}</div>
   </div>
+
+  <div class="calendar__body">
+    <div class="calendar__day" *ngFor="let item of calendarDays">
+      <span class="calendar__day-item">{{ item.date | date : 'd' }}</span>
+    </div>
+  </div>
 </mat-card>
