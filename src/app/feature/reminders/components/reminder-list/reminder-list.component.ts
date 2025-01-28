@@ -11,6 +11,7 @@ import { REMINDER_COLOR_MAP } from '@feature/reminders/constants/reminder.consta
 import { MAX_REMINDERS_TO_RENDER_PER_DAY } from '@feature/calendar/constants/calendar.constants';
 import { DIALOG_WIDTH } from '@constants/dialog.constant';
 import { ReminderDetailsDialogComponent } from '../reminder-details-dialog/reminder-details-dialog.component';
+import { ReminderFormDialogComponent } from '../reminder-form-dialog/reminder-form-dialog.component';
 
 @Component({
   selector: 'app-reminder-list',
@@ -41,5 +42,20 @@ export class ReminderListComponent {
         },
         width: DIALOG_WIDTH,
       });
+
+    detailsDialogRef.afterClosed().subscribe(result => {
+      if (result?.isEdit) {
+        this.openReminderForm(reminder);
+      }
+    });
+  }
+
+  public openReminderForm(reminder?: Reminder) {
+    this.matDialog.open<ReminderFormDialogComponent>(ReminderFormDialogComponent, {
+      data: {
+        reminder,
+      },
+      width: DIALOG_WIDTH,
+    });
   }
 }

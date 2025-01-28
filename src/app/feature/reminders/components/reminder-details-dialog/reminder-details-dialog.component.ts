@@ -1,13 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-import { ReminderColorMap, ReminderDialogData } from '@feature/reminders/interfaces/reminder.interface';
+import {
+  ReminderColorMap,
+  ReminderDetailsDialogAfterCloseData,
+  ReminderDialogData,
+} from '@feature/reminders/interfaces/reminder.interface';
 import { REMINDER_COLOR_MAP } from '@feature/reminders/constants/reminder.constants';
 
 @Component({
@@ -28,7 +32,14 @@ import { REMINDER_COLOR_MAP } from '@feature/reminders/constants/reminder.consta
 export class ReminderDetailsDialogComponent {
   public colorMap: ReminderColorMap;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ReminderDialogData) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ReminderDialogData,
+    private dialogRef: MatDialogRef<ReminderDetailsDialogComponent, ReminderDetailsDialogAfterCloseData>,
+  ) {
     this.colorMap = REMINDER_COLOR_MAP;
+  }
+
+  public edit() {
+    this.dialogRef.close({ isEdit: true });
   }
 }
