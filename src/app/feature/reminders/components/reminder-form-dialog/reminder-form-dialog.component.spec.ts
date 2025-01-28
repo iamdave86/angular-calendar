@@ -7,6 +7,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { CalendarService } from '@feature/calendar/services/calendar.service';
 import { ReminderFormDialogComponent } from './reminder-form-dialog.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { RemindersService } from '@feature/reminders/services/reminders.service';
 
 describe('ReminderFormComponent', () => {
   let component: ReminderFormDialogComponent;
@@ -17,6 +18,7 @@ describe('ReminderFormComponent', () => {
       imports: [ReactiveFormsModule, MatDialogModule, NoopAnimationsModule],
       providers: [
         CalendarService,
+        RemindersService,
         { provide: MatDialogRef, useValue: {} },
         {
           provide: MAT_DIALOG_DATA,

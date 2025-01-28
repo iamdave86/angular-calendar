@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { CalendarComponent } from './calendar.component';
 import { CalendarService } from '@feature/calendar/services/calendar.service';
+import { RemindersService } from '@feature/reminders/services/reminders.service';
 
 describe('CalendarComponent', () => {
   let component: CalendarComponent;
@@ -14,7 +15,7 @@ describe('CalendarComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MatToolbarModule, MatCardModule, MatIconModule, MatButtonModule],
-      providers: [CalendarService],
+      providers: [CalendarService, RemindersService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalendarComponent);
