@@ -36,6 +36,10 @@ export class ReminderListComponent {
   }
 
   public openReminderDetails(reminder: Reminder) {
+    if (this.isAdditional) {
+      this.clickReminderItem.emit();
+    }
+
     const detailsDialogRef: MatDialogRef<ReminderDetailsDialogComponent, ReminderDetailsDialogAfterCloseData> =
       this.matDialog.open<ReminderDetailsDialogComponent>(ReminderDetailsDialogComponent, {
         data: {
