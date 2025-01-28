@@ -4,6 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { routes } from './app.routes';
 import { CalendarService } from '@feature/calendar/services/calendar.service';
+import { RemindersService } from '@feature/reminders/services/reminders.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,5 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     CalendarService,
+    RemindersService,
   ],
 };
