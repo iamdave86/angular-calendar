@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 import { CalendarComponent } from './calendar.component';
 import { CalendarService } from '@feature/calendar/services/calendar.service';
@@ -12,7 +13,7 @@ describe('CalendarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatToolbarModule, MatCardModule, MatIconModule],
+      imports: [MatToolbarModule, MatCardModule, MatIconModule, MatButtonModule],
       providers: [CalendarService],
     }).compileComponents();
 
