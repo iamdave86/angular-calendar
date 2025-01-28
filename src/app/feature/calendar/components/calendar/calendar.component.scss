@@ -93,4 +93,10 @@ $color-blue: #2f73b5;
     font-size: 18px;
     font-weight: bold;
   }
+
+  &__today-button {
+    display: block;
+    margin: 0 auto 5px;
+    line-height: 26px;
+  }
 }

@@ -4,6 +4,8 @@
   </mat-toolbar>
 
   <mat-card class="calendar">
+    <button class="calendar__today-button" mat-raised-button (click)="today()">Today</button>
+
     <div class="calendar__date-selector">
       <button class="calendar__prev-button" mat-icon-button aria-label="Switch to previous month" (click)="prevMonth()">
         <mat-icon aria-hidden="false" aria-label="Previous month arrow icon">arrow_back_ios</mat-icon>

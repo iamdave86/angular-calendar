@@ -79,6 +79,10 @@ export class CalendarService {
     this.selectedDate$.next(addMonths(this.selectedDate$.getValue(), 1));
   }
 
+  public today() {
+    this.selectedDate$.next(new Date());
+  }
+
   private createAdditionalDays(date: Date, toIndex: number): CalendarDay[] {
     return [...Array(toIndex).keys()].reduce((days: CalendarDay[], d) => {
       const addedDate = addDays(date, d);

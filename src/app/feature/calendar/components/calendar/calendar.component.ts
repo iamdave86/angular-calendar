@@ -33,4 +33,8 @@ export class CalendarComponent {
   public nextMonth() {
     this.calendarService.nextMonth();
   }
+
+  public today() {
+    this.calendarService.today();
+  }
 }
