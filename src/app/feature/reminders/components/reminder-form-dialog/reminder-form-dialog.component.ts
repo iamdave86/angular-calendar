@@ -8,19 +8,22 @@ import {
 } from '@angular/material/core';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { REMINDER_COLOR_MAP, REMINDER_TEXT_MAX_LENGTH } from '@feature/reminders/constants/reminder.constant';
 import {
+  Reminder,
   ReminderColorEnum,
   ReminderColorMap,
   ReminderDialogData,
 } from '@feature/reminders/interfaces/reminder.interface';
+import { RemindersService } from '@feature/reminders/services/reminders.service';
 
 @Component({
   selector: 'app-reminder-form-dialog',
@@ -49,7 +52,13 @@ export class ReminderFormDialogComponent {
   public colorMap: ReminderColorMap;
   public maxTextLength: number;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ReminderDialogData, private formBuilder: FormBuilder) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ReminderDialogData,
+    private dialogRef: MatDialogRef<ReminderFormDialogComponent>,
+    private remindersService: RemindersService,
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar,
+  ) {
     this.form = this.initForm();
     this.colors = Object.values(ReminderColorEnum);
     this.colorMap = REMINDER_COLOR_MAP;
@@ -61,7 +70,17 @@ export class ReminderFormDialogComponent {
   }
 
   public save() {
-    // TODO
+    const { text, city } = this.form.value;
+    const data: Reminder = {
+      ...this.data.reminder,
+      ...this.form.value,
+      text: text.trim(),
+      city: city.trim(),
+    };
+
+    this.remindersService.createReminder(data);
+    this.dialogRef.close();
+    this.openSnackbar('Reminder saved');
   }
 
   public delete() {
@@ -81,6 +100,12 @@ export class ReminderFormDialogComponent {
       dateTime: [dateTime, [Validators.required]],
       color: [color, [Validators.required]],
       city: [city],
+    });
+  }
+
+  private openSnackbar(text: string) {
+    this.snackBar.open(text, undefined, {
+      duration: 2000,
     });
   }
 }
