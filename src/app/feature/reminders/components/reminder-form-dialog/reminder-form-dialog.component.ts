@@ -88,7 +88,8 @@ export class ReminderFormDialogComponent {
   }
 
   public delete() {
-    // TODO
+    this.remindersService.deleteReminder(this.data.reminder.id);
+    this.openSnackbar('Reminder deleted');
   }
 
   private initForm(): FormGroup {
