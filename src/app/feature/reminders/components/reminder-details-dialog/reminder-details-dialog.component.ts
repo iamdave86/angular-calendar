@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import {
   ReminderColorMap,
@@ -13,6 +14,9 @@ import {
   ReminderDialogData,
 } from '@feature/reminders/interfaces/reminder.interface';
 import { REMINDER_COLOR_MAP } from '@feature/reminders/constants/reminder.constants';
+import { WeatherService } from '@feature/weather/services/weather.service';
+import { Observable } from 'rxjs';
+import { Weather } from '@feature/weather/interfaces/weather.interface';
 
 @Component({
   selector: 'app-reminder-details-dialog',
@@ -27,16 +31,21 @@ import { REMINDER_COLOR_MAP } from '@feature/reminders/constants/reminder.consta
     MatIconModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
+  providers: [WeatherService],
 })
 export class ReminderDetailsDialogComponent {
   public colorMap: ReminderColorMap;
+  public weatherData$: Observable<Weather>;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ReminderDialogData,
     private dialogRef: MatDialogRef<ReminderDetailsDialogComponent, ReminderDetailsDialogAfterCloseData>,
+    private weatherService: WeatherService,
   ) {
     this.colorMap = REMINDER_COLOR_MAP;
+    this.weatherData$ = this.weatherService.getWeatherInformation(this.data.reminder?.city);
   }
 
   public edit() {

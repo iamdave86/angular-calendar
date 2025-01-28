@@ -24,4 +24,12 @@
     border-radius: 50%;
     margin-right: 6px;
   }
+
+  &__weather {
+    display: flex;
+  }
+
+  &__weather-desc {
+    text-transform: capitalize;
+  }
 }

@@ -14,6 +14,40 @@
       <mat-icon class="reminder-details-dialog__icon" aria-hidden="true">location_on</mat-icon>
       {{ data.reminder.city || 'not provided' }}
     </p>
+
+    <div class="reminder-details-dialog__weather" *ngFor="let weatherData of [weatherData$ | async]">
+      <mat-icon class="reminder-details-dialog-icon" aria-hidden="true">thermostat</mat-icon>
+
+      <div class="reminder-details-dialog__weather-data">
+        <mat-spinner *ngIf="data.reminder.city && weatherData === null" diameter="25"></mat-spinner>
+        <span *ngIf="!data.reminder.city || (data.reminder.city && weatherData === undefined)">N/A</span>
+        <span *ngIf="weatherData">
+          <ng-container
+            *ngTemplateOutlet="temperatureTemplate; context: { temperature: weatherData.temperature.actual }"
+          >
+          </ng-container>
+        </span>
+
+        <ng-container *ngIf="weatherData">
+          (feels like:
+          <ng-container
+            *ngTemplateOutlet="temperatureTemplate; context: { temperature: weatherData.temperature.feelsLike }"
+          >
+          </ng-container>
+          , min:
+          <ng-container *ngTemplateOutlet="temperatureTemplate; context: { temperature: weatherData.temperature.min }">
+          </ng-container>
+          , max:
+          <ng-container *ngTemplateOutlet="temperatureTemplate; context: { temperature: weatherData.temperature.max }">
+          </ng-container
+          >)
+          <br />
+          <span class="reminder-details-dialog__weather-desc">{{ weatherData.description }}</span>
+          <br />
+          <img [src]="weatherData.icon" />
+        </ng-container>
+      </div>
+    </div>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
@@ -21,3 +55,7 @@
     <button mat-stroked-button mat-dialog-close (click)="edit()">Edit</button>
   </mat-dialog-actions>
 </div>
+
+<ng-template #temperatureTemplate let-temperature="temperature">
+  {{ temperature | number : '1.0-1' }}&#8451;
+</ng-template>
