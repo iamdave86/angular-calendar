@@ -1,3 +1,5 @@
+$color-blue: #2f73b5;
+
 .header {
   margin-bottom: 20px;
 }
@@ -22,7 +24,7 @@
       align-items: center;
       justify-content: center;
       flex-grow: 1;
-      background-color: #2f73b5;
+      background-color: $color-blue;
       color: white;
       height: 30px;
     }
@@ -52,6 +54,23 @@
 
     &-item {
       font-weight: bold;
+    }
+
+    &.weekend {
+      background-color: #f2f2f2;
+      color: $color-blue;
+    }
+
+    &.today .calendar__day-item {
+      border-radius: 50%;
+      background-color: $color-blue;
+      color: white;
+      padding: 4px;
+      width: 18px;
+      height: 18px;
+      line-height: 19px;
+      display: block;
+      margin: 0 auto;
     }
   }
 }

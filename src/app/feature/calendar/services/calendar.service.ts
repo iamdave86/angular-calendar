@@ -8,6 +8,7 @@ import {
   getDaysInMonth,
   getMonth,
   getYear,
+  isWeekend,
   startOfWeek,
   subDays,
 } from 'date-fns';
@@ -31,6 +32,7 @@ export class CalendarService {
     const today = new Date();
     const year = getYear(today);
     const month = getMonth(today) + 1;
+    const formattedToday = this.formatDate(new Date());
     const numberOfDayInMonth = getDaysInMonth(new Date(`${year}-${month}`));
 
     return [...Array(numberOfDayInMonth)].reduce((days: CalendarDay[], _, index) => {
@@ -46,7 +48,8 @@ export class CalendarService {
       }
 
       const date = this.formatDate(dateObj);
-      days.push({ date });
+      const weekend = this.isWeekend(dateObj);
+      days.push({ date, disabled: false, weekend, today: date === formattedToday });
 
       // if last day of month is not Saturday, need to fill these gap days from next month
       if (index === numberOfDayInMonth - 1 && dayIndex !== LAST_DAY_OF_WEEK_INDEX) {
@@ -65,6 +68,8 @@ export class CalendarService {
       const addedDate = addDays(date, d);
       days.push({
         date: this.formatDate(addedDate),
+        disabled: true,
+        weekend: this.isWeekend(addedDate),
       });
 
       return days;
@@ -80,5 +85,9 @@ export class CalendarService {
 
   private formatDate(date: Date): string {
     return format(date, DATE_FORMAT);
+  }
+
+  private isWeekend(date: Date): boolean {
+    return isWeekend(date);
   }
 }

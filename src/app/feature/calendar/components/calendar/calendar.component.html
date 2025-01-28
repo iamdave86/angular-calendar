@@ -8,7 +8,13 @@
   </div>
 
   <div class="calendar__body">
-    <div class="calendar__day" *ngFor="let item of calendarDays">
+    <div
+      class="calendar__day"
+      *ngFor="let item of calendarDays"
+      [class.weekend]="item.weekend"
+      [class.disabled]="item.disabled"
+      [class.today]="item.today"
+    >
       <span class="calendar__day-item">{{ item.date | date : 'd' }}</span>
     </div>
   </div>
