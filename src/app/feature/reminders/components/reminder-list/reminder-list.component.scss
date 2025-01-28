@@ -20,4 +20,13 @@
       margin-bottom: 0;
     }
   }
+
+  &__show-more-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: black;
+    margin-top: -2px;
+  }
 }
