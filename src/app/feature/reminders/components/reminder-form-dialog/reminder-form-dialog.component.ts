@@ -78,7 +78,11 @@ export class ReminderFormDialogComponent {
       city: city.trim(),
     };
 
-    this.remindersService.createReminder(data);
+    if (this.data.reminder?.id) {
+      this.remindersService.editReminder(data);
+    } else {
+      this.remindersService.createReminder(data);
+    }
     this.dialogRef.close();
     this.openSnackbar('Reminder saved');
   }
