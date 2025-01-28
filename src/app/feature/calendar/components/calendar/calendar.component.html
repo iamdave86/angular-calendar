@@ -2,21 +2,29 @@
   <mat-toolbar class="header">
     <strong>Angular Calendar</strong>
     <span class="spacer"></span>
-    <button mat-button class="add-reminder-button"><mat-icon>add</mat-icon> Add Reminder</button>
+    <button mat-flat-button class="add-reminder-button"><mat-icon>add</mat-icon> Add Reminder</button>
   </mat-toolbar>
 
   <mat-card class="calendar">
-    <button class="calendar__today-button" mat-raised-button (click)="today()">Today</button>
+    <button class="calendar__today-button" mat-flat-button (click)="today()">Today</button>
 
     <div class="calendar__date-selector">
-      <button class="calendar__prev-button" mat-icon-button aria-label="Switch to previous month" (click)="prevMonth()">
+      <button
+        mat-fab
+        extended
+        class="calendar__prev-button"
+        aria-label="Switch to previous month"
+        (click)="prevMonth()"
+      >
         <mat-icon aria-hidden="false" aria-label="Previous month arrow icon">arrow_back_ios</mat-icon>
+        Prev month
       </button>
       <span class="calendar__selected-date">
         {{ selectedDate$ | async | date : 'MMMM y' }}
       </span>
-      <button class="calendar__next-button" mat-icon-button aria-label="Switch to next month" (click)="nextMonth()">
+      <button mat-fab extended class="calendar__next-button" aria-label="Switch to next month" (click)="nextMonth()">
         <mat-icon aria-hidden="false" aria-label="Next month arrow icon">arrow_forward_ios</mat-icon>
+        Next month
       </button>
     </div>
 
