@@ -28,7 +28,7 @@
 ## Lint
 
 1. Go to the project's root directory.
-2. Run `npm lint`.
+2. Run `npm run lint`.
 
 ## Test
 
@@ -38,4 +38,4 @@
 ## Build
 
 1. Go to the project's root directory.
-2. Run `npm build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
